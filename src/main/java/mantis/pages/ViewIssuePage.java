@@ -11,7 +11,7 @@ public class ViewIssuePage {
     private final WebDriverWait wait;
 
     @FindBy(css = "#buglist tr:first-child td.column-summary")
-    private WebElement summaryСell;
+    private WebElement summaryCell;
 
     @FindBy(css = "#buglist tr:first-child td.column-id")
     private WebElement issueID;
@@ -32,7 +32,7 @@ public class ViewIssuePage {
     }
 
     public String getLastCreatedSummary() {
-        return summaryСell.getText();
+        return summaryCell.getText();
     }
 
     public String getTableTitle() {
