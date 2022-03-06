@@ -1,6 +1,8 @@
 package mantis.tests;
 
+import mantis.pages.MainPage;
 import mantis.pages.MantisSite;
+import mantis.pages.ReportIssuePage;
 import org.assertj.core.api.SoftAssertions;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -8,10 +10,14 @@ import org.junit.jupiter.api.Test;
 public class ReportIssueTests extends BaseTest {
 
     private MantisSite mantisSite;
+    private MainPage mainPage;
+    private ReportIssuePage reportIssuePage;
 
     @Test
     public void successfulReportIssueTest() throws InterruptedException {
         mantisSite = new MantisSite(driver);
+        mainPage = new MainPage(driver);
+        reportIssuePage = new ReportIssuePage(driver);
 
         String login = "admin";
         String password = "admin20";
@@ -19,17 +25,19 @@ public class ReportIssueTests extends BaseTest {
         String description = "description_test";
 
         mantisSite.login(login, password);
-        mantisSite.reportIssue(summary, description);
+        mainPage.goToReportIssuePage();
+        reportIssuePage.createReportIssue(summary, description);
+
         Thread.sleep(2000);
 
         SoftAssertions softAssert = new SoftAssertions();
 
-        softAssert.assertThat(mantisSite.getViewIssuePage().getSummary().equals(summary));
-        softAssert.assertThat(mantisSite.getViewIssuePage().getTableTitle().contains("Viewing Issues"));
+        softAssert.assertThat(mantisSite.getViewIssuePage().getLastCreatedSummary()).isEqualTo(summary);
+        softAssert.assertThat(mantisSite.getViewIssuePage().getTableTitle()).contains("Viewing Issues");
         softAssert.assertAll();
 
-        mantisSite.getViewIssuePage().deleteIssue();
+        mantisSite.getViewIssuePage().deleteLastCreatedIssue();
 
-        Assertions.assertNotEquals(summary, mantisSite.getViewIssuePage().getSummary());
+        Assertions.assertNotEquals(summary, mantisSite.getViewIssuePage().getLastCreatedSummary());
     }
 }

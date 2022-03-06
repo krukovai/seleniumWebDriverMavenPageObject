@@ -25,13 +25,6 @@ public class MantisSite {
         passwordPage.login(password);
     }
 
-    public void reportIssue(String summary, String description) {
-        mainPage.goToReportIssuePage();
-        reportIssuePage.summary(summary);
-        reportIssuePage.description(description);
-        reportIssuePage.submitIssueClick();
-    }
-
     public LoginPage getLoginPage() {
         return loginPage;
     }

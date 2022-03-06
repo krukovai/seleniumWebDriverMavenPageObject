@@ -11,18 +11,18 @@ public class ViewIssuePage {
     private final WebDriverWait wait;
 
     @FindBy(css = "#buglist tr:first-child td.column-summary")
-    private WebElement summarySell;
+    private WebElement summaryСell;
 
     @FindBy(css = "#buglist tr:first-child td.column-id")
     private WebElement issueID;
 
-    @FindBy(css = "div[class='btn-group'] input[value=\"Delete\"]")
+    @FindBy(css = "div[class='btn-group'] input[value='Delete']")
     private WebElement deleteButton;
 
-    @FindBy(css = "div input[value=\"Delete Issues\"]")
+    @FindBy(css = "div input[value='Delete Issues']")
     private WebElement confirmDeleteButton;
 
-    @FindBy(xpath = "//*[@id=\"bug_action\"]//h4")
+    @FindBy(xpath = "//*[@id='bug_action']//h4")
     private WebElement tableTitle;
 
     public ViewIssuePage(WebDriver driver) {
@@ -31,15 +31,15 @@ public class ViewIssuePage {
         PageFactory.initElements(driver, this);
     }
 
-    public String getSummary() {
-        return summarySell.getText();
+    public String getLastCreatedSummary() {
+        return summaryСell.getText();
     }
 
     public String getTableTitle() {
         return tableTitle.getText();
     }
 
-    public void deleteIssue() {
+    public void deleteLastCreatedIssue() {
         issueID.click();
         deleteButton.click();
         confirmDeleteButton.click();

@@ -10,14 +10,16 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 public class ReportIssuePage {
     private final WebDriver driver;
     private final WebDriverWait wait;
+    private MainPage mainPage;
+    private ReportIssuePage reportIssuePage;
 
     @FindBy(css = "#summary")
-    private WebElement summaryFild;
+    private WebElement summaryField;
 
     @FindBy(css = "#description")
-    private WebElement descriptionFild;
+    private WebElement descriptionField;
 
-    @FindBy(css = "[value=\"Submit Issue\"]")
+    @FindBy(css = "[value='Submit Issue']")
     private WebElement submitIssueButton;
 
     public ReportIssuePage(WebDriver driver) {
@@ -27,23 +29,30 @@ public class ReportIssuePage {
     }
 
     public String getReportSummary() {
-        return summaryFild.getText();
+        return summaryField.getText();
     }
 
     public String getDescription() {
-        return descriptionFild.getText();
+        return descriptionField.getText();
     }
 
-    public void summary(String summary) {
-        summaryFild.sendKeys(summary);
+    public void setSummary(String summary) {
+        summaryField.sendKeys(summary);
     }
 
-    public void description(String description) {
-        descriptionFild.sendKeys(description);
+    public void setDescription(String description) {
+        descriptionField.sendKeys(description);
     }
 
-    public void submitIssueClick() {
+    public void clickSubmitIssue() {
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", submitIssueButton);
         submitIssueButton.click();
     }
+
+    public void createReportIssue(String summary, String description) {
+        setSummary(summary);
+        setDescription(description);
+        clickSubmitIssue();
+    }
+
 }
