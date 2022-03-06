@@ -36,7 +36,6 @@ public class ViewIssuePage {
     }
 
     public String getTableTitle() {
-        System.out.println(tableTitle.getText());
         return tableTitle.getText();
     }
 
